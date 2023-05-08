@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKRFS Scenario Generator</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="assets/apple-touch-icon.png" sizes="180x180" rel="apple-touch-icon">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/local.js"></script>
+    <script src="assets/js/aircraft/A109.js"></script>
+    <script src="assets/js/aircraft/B757.js"></script>
+    <script src="assets/js/aircraft/C130.js"></script>
+    <script src="assets/js/aircraft/KA350.js"></script>
+    <script src="assets/js/aircraft/NH90.js"></script>
+    <script src="assets/js/aircraft/P8A.js"></script>
+    <script src="assets/js/aircraft/SH2.js"></script>
+    <script src="assets/js/aircraft/T6C.js"></script>
+    <script src="assets/js/generator.js"></script>
+
+</head>
+<body>
+  <!-- Pre Loader -->
+  <div class="loader-text-wrapper block">
+  </div>
+  <div class="pre-loader block">
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <!-- Aircraft Selection -->
+  <div id="aircraft-select">
+    <div class="card-container">
+      <div class="card" data-aircraft="A109" onclick="scenario('A109')">
+        <div class="card-bg" style="background-image: url(assets/images/A109.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 4</div>
+          <div class="full-name">A-109</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="B757" onclick="scenario('B757')">
+        <div class="card-bg" style="background-image: url(assets/images/B757.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 7</div>
+          <div class="full-name">Boeing 757</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="C130" onclick="scenario('C130')">
+        <div class="card-bg" style="background-image: url(assets/images/C130.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 7</div>
+          <div class="full-name">C-130 Hercules</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="KA350" onclick="scenario('KA350')">
+        <div class="card-bg" style="background-image: url(assets/images/KA350.JPG);"></div>
+        <div class="card-content">
+          <div class="cat-rating">cat 4</div>
+          <div class="full-name">King Air 350</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="NH90" onclick="scenario('NH90')">
+        <div class="card-bg" style="background-image: url(assets/images/NH90.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 4</div>
+          <div class="full-name">NH-90</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="P8A" onclick="scenario('P8A')">
+        <div class="card-bg" style="background-image: url(assets/images/P8A.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 7</div>
+          <div class="full-name">P8A Posideon</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="SH2" onclick="scenario('SH2')">
+        <div class="card-bg" style="background-image: url(assets/images/SH2.JPG);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 4</div>
+          <div class="full-name">Seasprite</div>
+        </div>
+      </div>
+      <div class="card" data-aircraft="T6C" onclick="scenario('T6C')">
+        <div class="card-bg" style="background-image: url(assets/images/T6C.jpg);"></div>
+        <div class="card-content">
+          <div class="cat-rating">Cat 4</div>
+          <div class="full-name">Texan T6-C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scenario-wrapper">
+    <div class="scenario">
+      <h1 id="state" class="state"></h1>
+      <h2 class="label">Location</h2>
+      <h2 id="location" class="generated"></h2>
+      <h2 class="label">Aircraft</h2>
+      <h2 id="aircraft" class="generated"></h2>
+      <h2 class="label">Nature of Trouble</h2>
+      <h2 id="n-o-t" class="generated"></h2>
+      <h2 class="label">P.O.B</h2>
+      <h2 id="p-o-b" class="generated"></h2>
+      <h2 class="label">Fuel</h2>
+      <h2 id="fuel" class="generated"></h2>
+      <h2 class="label">Dangerous Goods</h2>
+      <h2 id="d-g" class="generated"></h2>
+    </div>
+    <h3 class="restart" onclick="window.location.reload()"><span>New Scenario</span></h3>
+  </div>
+</body>
+<script>
+  function scenario(selected) {
+    generate(selected);
+    transition();
+  }
+
+
+  // Pre-loader Animation
+  var pl = gsap.timeline();
+
+  pl.from(".loader-wrapper", 2, {
+    scale: 0.8,
+    ease: "power1.inOut",
+  }, 0);
+  pl.from(".loader", 2, {
+    top:"100%",
+    ease: "power3.inOut",
+  }, 0);
+  pl.to(".loader-wrapper, .pre-loader", 1, {
+    scale: 1.5,
+    opacity: 0,
+    display: "none",
+    ease: "power3.inOut",
+  }, "-=.2");
+  pl.to(".loader-text-wrapper", 2.5, {
+    opacity: 0,
+    display: "none",
+    ease: "power1.inOut"
+  }, "-=.8");
+  pl.from("body", {
+    overflow: "hidden",
+  })
+  pl.from(".card", .8, {
+    opacity: 0,
+    ease: "power1.inOut",
+    stagger: .2,
+  }, "-=2.5");
+
+
+  // Transition Animation
+  function transition() {
+    var tl = gsap.timeline();
+
+    tl.to(".card", .8, {
+      opacity: 0,
+      stagger: .2,
+      ease: "power1.inOut",
+    }, "-=.2");
+    tl.to("#aircraft-select", 2, {
+      opacity: 0,
+      display: "none",
+      ease: "power1.inOut",
+    }, "-=1.5");
+    tl.from(".state", .8, {
+      opacity: 0,
+    })
+    tl.from("h2", .8, {
+      opacity: 0,
+      stagger: .5,
+    });
+    tl.from(".restart", 1, {
+      opacity: 0,
+    }, "+=1")
+  };
+</script>
+</html>

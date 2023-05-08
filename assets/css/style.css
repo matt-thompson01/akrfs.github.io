@@ -1,0 +1,256 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    height: 100svh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.loader-text-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #13acea;
+    z-index: 5;
+}
+
+.loader-text {
+    font-size: 4em;
+    color: white;
+    text-align: center;
+}
+
+.loader-text > span {
+    letter-spacing: 0.5em;
+}
+
+.pre-loader {
+    position: relative;
+    top: 0;
+    left: 0;
+    background: white;
+    z-index: 10;
+}
+
+.loader-wrapper {
+    position: relative;
+    width: 10px;
+    height: 140px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 4px;
+    overflow: hidden;
+    transform: rotate(45deg);
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(251, 0, 255);
+    background-image: linear-gradient(
+        45deg,
+        hsl(198deg 85% 37%) 0%,
+        hsl(197deg 85% 45%) 39%,
+        hsl(198deg 78% 60%) 61%,
+        hsl(198deg 51% 81%) 100%
+    );
+}
+
+#aircraft-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    width: 100%;
+    z-index: 3;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: linear-gradient(
+        45deg,
+        hsl(213deg 15% 12%) 0%,
+        hsl(205deg 42% 29%) 50%,
+        hsl(198deg 85% 37%) 100%
+    );
+}
+
+.card-container {
+    display: flex;
+    width: auto;
+    height: auto;
+    margin: auto;
+    flex-flow: row wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.card {
+    position: relative;
+    list-style: none;
+    aspect-ratio: 8 / 5;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+@media (orientation: portrait) {
+    .card {
+        width: clamp(300px, 30vw, 750px);
+    }
+}
+@media (orientation: Landscape) {
+    .card {
+        width: clamp(300px, 20vw, 750px);
+    }
+}
+
+.card-bg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    filter: brightness(.8) saturate(1) contrast(1);
+    transform-origin: bottom;
+    transform: scale(1) translateZ(0);
+    transition: .3s ease-in-out;
+}
+
+.card-content {
+    bottom: 0;
+    left: 0;
+    padding: 10%;
+    position: absolute;
+    user-select: none;
+}
+
+.cat-rating {
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.full-name {
+    color: white;
+    font-size: 25px;
+    line-height: 1;
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, .2);
+}
+
+.card:hover .card-bg, .card:active .card-bg {
+    transform: scale(1.05) translateZ(0);
+}
+
+.card-container:hover > .card:not(:hover) .card-bg,
+.card-container:hover > .card:not(:hover) .cat-rating {
+    filter: brightness(.5) saturate(0) contrast(1.2) blur(10px);
+}
+
+#scenario-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    z-index: 2;
+    background: #1a1e23;
+    color: white;
+    cursor: default;
+}
+
+.scenario {
+    display: grid;
+    position: relative;
+    margin-bottom: 15%;
+    width: 85%;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 20px;
+    align-items: center;
+}
+
+.state {
+    text-align: center;
+    font-size: 4em;
+    text-transform: uppercase;
+    grid-column: 1 / 3;
+}
+
+.label {
+    font-size: 3em;
+    font-weight: 700;
+    text-align: right;
+}
+.scenario > h2.generated {
+    font-size: 3em;
+    font-weight: 400;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .scenario {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 30%;
+    }
+
+    .state {
+        grid-column: 1;
+    }
+
+    .label {
+        text-align: center;
+    }
+
+    .scenario > h2.generated {
+        text-align: center;
+    }
+}
+
+.restart {
+    position: absolute;
+    display: block;
+    bottom: 5%;
+    color: #13acea;
+    cursor: pointer;
+    padding: 0.35em 1em;
+    border: 0.15em solid #13acea;
+    border-radius: 0.45em;
+    background: none;
+    perspective: 2em;
+    font-size: 2em;
+    font-weight: 500;
+    letter-spacing: normal;
+}
+
+.restart:hover {
+    background: #13acea;
+    color: #1a1e23;
+}
