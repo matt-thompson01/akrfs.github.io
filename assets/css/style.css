@@ -11,6 +11,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     overflow-x: hidden;
+    background-color: #1a1e23;
 }
 
 .block {
@@ -75,7 +76,7 @@ body {
 }
 
 #version {
-    position: fixed;
+    position: absolute;
     bottom: 1%;
     right: 1%;
     text-align: right;
