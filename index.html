@@ -30,7 +30,7 @@
     <div class="loader-wrapper">
       <div class="loader"></div>
     </div>
-    <div id="version">v1.0.2</div>
+    <div id="version">v1.0.3</div>
   </div>
 
   <!-- Aircraft Selection -->
@@ -111,7 +111,7 @@
       <h2 class="label">Dangerous Goods</h2>
       <h2 id="d-g" class="generated"></h2>
     </div>
-    <h3 class="restart" onclick="window.location.reload()"><span>New Scenario</span></h3>
+    <h3 class="restart" onclick="restart()"><span>New Scenario</span></h3>
   </div>
 </body>
 <script>
@@ -120,18 +120,21 @@
     transition();
   }
 
-
   // Pre-loader Animation
   var pl = gsap.timeline();
 
+  pl.from(".loader-wrapper", 0.5, {
+    opacity: 0,
+    ease: "power1.inOut",
+  });
   pl.from(".loader-wrapper", 2, {
     scale: 0.8,
     ease: "power1.inOut",
-  }, 0);
+  },);
   pl.from(".loader", 2, {
     top:"100%",
     ease: "power3.inOut",
-  }, 0);
+  }, "<");
   pl.to(".loader-wrapper, .pre-loader", 1, {
     scale: 1.5,
     opacity: 0,
@@ -177,6 +180,22 @@
     tl.from(".restart", 1, {
       opacity: 0,
     }, "+=1")
+  };
+
+  // New Scenario animation
+  function restart() {
+    gsap.timeline().fromTo(".pre-loader", {
+    scale: 1,
+    opacity: 0,
+    display: "none",
+  }, {
+    opacity: 1,
+    scale: 1,
+    display: "flex",
+    duration: 1,
+  });
+
+    setTimeout(function () {location.reload()}, 1100);
   };
 </script>
 </html>
